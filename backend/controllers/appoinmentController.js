@@ -12,25 +12,28 @@ const getAppointments = async (req, res) => {
 };
 const createAppointment = async (req, res) => {
   try {
-    const { ...appointmentData } = req.body;
-    const revenueId = req.body.revenueId;
-    if (!revenueId) {
-      return res.status(400).json({ message: "Revenue ID is required." });
-    }
-    const newAppointment = new Appointments(appointmentData);
+    // const { ...appointmentData } = req.body;
+    // const revenueId = req.body.revenueId;
+    // if (!revenueId) {
+    //   return res.status(400).json({ message: "Revenue ID is required." });
+    // }
+    // const newAppointment = new Appointments(appointmentData);
+    console.log(req.body);
+    const newAppointment = new Appointments(req.body);
     const appointmentSaved = await newAppointment.save();
-    const revenues = await Revenue.findById(revenueId);
-    if (!revenues) {
-      return res.status(404).json({ message: "Revenue record not found." });
-    }
-    await Revenue.findByIdAndUpdate(
-      revenueId,
-      { revenue: revenues.revenue + 100 },
-      { new: true }
-    );
+    // const revenues = await Revenue.findById(revenueId);
+    // if (!revenues) {
+    //   return res.status(404).json({ message: "Revenue record not found." });
+    // }
+    // await Revenue.findByIdAndUpdate(
+    //   revenueId,
+    //   { revenue: revenues.revenue + 100 },
+    //   { new: true }
+    // );
+    console.log(appointmentSaved);
     res.status(201).json(appointmentSaved);
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     res
       .status(500)
       .json({ message: `Error creating appointment: ${error.message}` });
@@ -61,15 +64,15 @@ const deleteAppointment = async (req, res) => {
     if (!appointmentDeleted) {
       return res.status(404).json({ message: "Appointment not found." });
     }
-    const revenues = await Revenue.findById(req.body.revenueId);
-    if (!revenues) {
-      return res.status(404).json({ message: "Revenue record not found." });
-    }
-    await Revenue.findByIdAndUpdate(
-      req.body.revenueId,
-      { revenue: revenues.revenue - 100 },
-      { new: true }
-    );
+    // const revenues = await Revenue.findById(req.body.revenueId);
+    // if (!revenues) {
+    //   return res.status(404).json({ message: "Revenue record not found." });
+    // }
+    // await Revenue.findByIdAndUpdate(
+    //   req.body.revenueId,
+    //   { revenue: revenues.revenue - 100 },
+    //   { new: true }
+    // );
     res.json(appointmentDeleted);
   } catch (error) {
     res

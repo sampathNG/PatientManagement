@@ -28,6 +28,7 @@ app.use("/api/appointments", require("./routes/appointmentRoutes"));
 app.use("/api/revenues", require("./routes/revenueRoutes"));
 app.use("/api/consultations", require("./routes/consultationRoutes"));
 app.use("/api/services", require("./routes/serviceRoutes"));
+app.use("/api/reports", require("./routes/reportRoutes"));
 app.listen(port, () => {
   console.log(`app listening on port ${port}`);
 });
