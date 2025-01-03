@@ -1,40 +1,62 @@
-import React, { useState } from 'react';
-import { Plus } from 'lucide-react';
-import { useData } from '../contexts/DataContext';
-import { Service } from '../types';
-import toast from 'react-hot-toast';
-
+import React, { useState } from "react";
+import { Plus } from "lucide-react";
+import { useData } from "../contexts/DataContext";
+import { Service } from "../types";
+import axios from "axios";
+import toast from "react-hot-toast";
 export default function Services() {
   const { services, addService, updateService, deleteService } = useData();
   const [showForm, setShowForm] = useState(false);
   const [editingService, setEditingService] = useState<Service | null>(null);
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   const form = e.currentTarget;
+  //   const formData = new FormData(form);
+  //   const serviceData = {
+  //     name: formData.get("name") as string,
+  //     description: formData.get("description") as string,
+  //     cost: Number(formData.get("cost")),
+  //     duration: Number(formData.get("duration")),
+  //   };
+  //   try {
+  //     if (editingService) {
+  //       updateService(editingService._id, serviceData);
+  //       toast.success("Service updated successfully");
+  //     } else {
+  //       addService(serviceData);
+  //       toast.success("Service added successfully");
+  //     }
+  //     setShowForm(false);
+  //     setEditingService(null);
+  //   } catch (error) {
+  //     toast.error("An error occurred");
+  //   }
+  // };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
     const serviceData = {
-      name: formData.get('name') as string,
-      description: formData.get('description') as string,
-      cost: Number(formData.get('cost')),
-      duration: Number(formData.get('duration'))
+      name: formData.get("name") as string,
+      description: formData.get("description") as string,
+      cost: Number(formData.get("cost")),
+      duration: Number(formData.get("duration")),
     };
-
     try {
       if (editingService) {
-        updateService(editingService.id, serviceData);
-        toast.success('Service updated successfully');
+        updateService(editingService._id, serviceData);
+        toast.success("Service updated successfully");
       } else {
         addService(serviceData);
-        toast.success('Service added successfully');
+        toast.success("Service added successfully");
       }
       setShowForm(false);
       setEditingService(null);
     } catch (error) {
-      toast.error('An error occurred');
+      toast.error("An error occurred");
     }
   };
-
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -47,15 +69,16 @@ export default function Services() {
           Add Service
         </button>
       </div>
-
       {showForm ? (
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-xl font-semibold mb-4">
-            {editingService ? 'Edit Service' : 'Add New Service'}
+            {editingService ? "Edit Service" : "Add New Service"}
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Name</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Name
+              </label>
               <input
                 type="text"
                 name="name"
@@ -65,7 +88,9 @@ export default function Services() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Description</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Description
+              </label>
               <textarea
                 name="description"
                 defaultValue={editingService?.description}
@@ -75,7 +100,9 @@ export default function Services() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Cost ($)</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Cost ($)
+              </label>
               <input
                 type="number"
                 name="cost"
@@ -85,7 +112,9 @@ export default function Services() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">Duration (minutes)</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Duration (minutes)
+              </label>
               <input
                 type="number"
                 name="duration"
@@ -109,7 +138,7 @@ export default function Services() {
                 type="submit"
                 className="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700"
               >
-                {editingService ? 'Update' : 'Add'} Service
+                {editingService ? "Update" : "Add"} Service
               </button>
             </div>
           </form>
@@ -117,7 +146,10 @@ export default function Services() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service) => (
-            <div key={service.id} className="bg-white rounded-lg shadow-md p-6">
+            <div
+              key={service._id}
+              className="bg-white rounded-lg shadow-md p-6"
+            >
               <h3 className="text-lg font-semibold">{service.name}</h3>
               <p className="text-gray-600 mt-2">{service.description}</p>
               <div className="mt-4 flex justify-between items-center">
@@ -142,8 +174,8 @@ export default function Services() {
                 </button>
                 <button
                   onClick={() => {
-                    deleteService(service.id);
-                    toast.success('Service deleted successfully');
+                    deleteService(service._id);
+                    toast.success("Service deleted successfully");
                   }}
                   className="text-red-600 hover:text-red-800"
                 >

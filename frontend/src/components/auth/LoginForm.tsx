@@ -1,24 +1,21 @@
-import React, { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import toast from 'react-hot-toast';
-
+import React, { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
+import toast from "react-hot-toast";
 export function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { signIn } = useAuth();
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await signIn(email, password);
     } catch (error) {
-      toast.error('Invalid credentials');
+      toast.error("Invalid credentials");
     }
   };
-
   return (
     <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-      <div className="rounded-md shadow-sm -space-y-px">
+      <div className="rounded-md shadow-sm space-y-3">
         <div>
           <label htmlFor="email-address" className="sr-only">
             Email address
@@ -52,7 +49,6 @@ export function LoginForm() {
           />
         </div>
       </div>
-
       <div>
         <button
           type="submit"

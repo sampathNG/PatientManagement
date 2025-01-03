@@ -1,40 +1,36 @@
-import React, { useState } from 'react';
-import { Plus } from 'lucide-react';
-import { PatientList } from '../components/patients/PatientList';
-import { PatientForm } from '../components/patients/PatientForm';
-import { useData } from '../contexts/DataContext';
-import { Patient } from '../types';
-import toast from 'react-hot-toast';
-
+import React, { useState } from "react";
+import { Plus } from "lucide-react";
+import { PatientList } from "../components/patients/PatientList";
+import { PatientForm } from "../components/patients/PatientForm";
+import { useData } from "../contexts/DataContext";
+import { Patient } from "../types";
+import toast from "react-hot-toast";
 export default function Patients() {
   const { addPatient, updatePatient, patients } = useData();
   const [showForm, setShowForm] = useState(false);
   const [editingPatient, setEditingPatient] = useState<Patient | null>(null);
-
-  const handleSubmit = (data: Omit<Patient, 'id' | 'createdAt'>) => {
+  const handleSubmit = (data: Omit<Patient, "_id" | "createdAt">) => {
     try {
       if (editingPatient) {
-        updatePatient(editingPatient.id, data);
-        toast.success('Patient updated successfully');
+        updatePatient(editingPatient._id, data);
+        toast.success("Patient updated successfully");
       } else {
         addPatient(data);
-        toast.success('Patient added successfully');
+        toast.success("Patient added successfully");
       }
       setShowForm(false);
       setEditingPatient(null);
     } catch (error) {
-      toast.error('An error occurred');
+      toast.error("An error occurred");
     }
   };
-
-  const handleEdit = (id: string) => {
-    const patient = patients.find(p => p.id === id);
+  const handleEdit = (_id: string) => {
+    const patient = patients.find((p) => p._id === _id);
     if (patient) {
       setEditingPatient(patient);
       setShowForm(true);
     }
   };
-
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -47,11 +43,10 @@ export default function Patients() {
           Add Patient
         </button>
       </div>
-
       {showForm ? (
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-xl font-semibold mb-4">
-            {editingPatient ? 'Edit Patient' : 'Add New Patient'}
+            {editingPatient ? "Edit Patient" : "Add New Patient"}
           </h2>
           <PatientForm
             onSubmit={handleSubmit}

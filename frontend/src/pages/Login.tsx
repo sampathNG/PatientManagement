@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { Building2 } from 'lucide-react'; // Changed from Hospital to Building2
-import { useAuth } from '../contexts/AuthContext';
-import toast from 'react-hot-toast';
-import { LoginForm } from '../components/auth/LoginForm';
-
+import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
+import { Building2 } from "lucide-react"; // Changed from Hospital to Building2
+import { useAuth } from "../contexts/AuthContext";
+import toast from "react-hot-toast";
+import { LoginForm } from "../components/auth/LoginForm";
 function Login() {
   const { user } = useAuth();
-
   if (user) {
     return <Navigate to="/" />;
   }
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -28,5 +25,4 @@ function Login() {
     </div>
   );
 }
-
 export default Login;

@@ -28,7 +28,15 @@ export interface Appointment {
   doctorId: string;
   date: string;
   time: string;
-  status: 'scheduled' | 'completed' | 'cancelled';
+  status: "scheduled" | "completed" | "cancelled";
   notes: string;
   consultationId?: string; // Reference to consultation if completed
+}
+
+export interface Service {
+  id: string;
+  name: string;
+  description: string;
+  cost: number;
+  duration: number;
 }
