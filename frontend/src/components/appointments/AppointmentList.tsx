@@ -62,7 +62,7 @@ export function AppointmentList({ onEdit }: { onEdit: (id: string) => void }) {
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex space-x-2">
                     <button
-                      onClick={() => onEdit(appointment.id)}
+                      onClick={() => onEdit(appointment._id)}
                       className="text-blue-600 hover:text-blue-800"
                     >
                       <Edit className="w-5 h-5" />

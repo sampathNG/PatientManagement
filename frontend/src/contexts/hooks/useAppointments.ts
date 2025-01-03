@@ -12,7 +12,6 @@ const DEMO_APPOINTMENTS: Appointment[] = [
     notes: "Regular checkup",
   },
 ];
-
 export function useAppointments() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   useEffect(() => {
@@ -36,18 +35,16 @@ export function useAppointments() {
     };
     setAppointments([...appointments, newAppointment]);
   };
-
   const updateAppointment = (
     id: string,
     appointmentUpdate: Partial<Appointment>
   ) => {
     setAppointments(
       appointments.map((a) =>
-        a.id === id ? { ...a, ...appointmentUpdate } : a
+        a._id === id ? { ...a, ...appointmentUpdate } : a
       )
     );
   };
-
   const deleteAppointment = async (id: string) => {
     const previousAppointments = [...appointments];
     setAppointments(appointments.filter((a) => a._id !== id));
@@ -56,9 +53,8 @@ export function useAppointments() {
       await axios.delete(`${apiEndpoint}/${id}`);
     } catch (error) {
       console.error("Error deleting appointment:", error.message);
-      setAppointments(previousAppointments); // Revert state on failure
+      setAppointments(previousAppointments);
     }
   };
-
   return { appointments, addAppointment, updateAppointment, deleteAppointment };
 }
