@@ -1,5 +1,6 @@
 import React, { createContext, useContext } from "react";
 import { usePatients } from "./hooks/usePatients";
+import { useDoctors } from "./hooks/useDoctors";
 import { useAppointments } from "./hooks/useAppointments";
 import { useServices } from "./hooks/useServices";
 import { useConsultations } from "./hooks/useConsultations";
@@ -9,6 +10,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const patients = usePatients();
   const appointments = useAppointments();
   const services = useServices();
+  const doctors = useDoctors();
   const consultations = useConsultations();
   return (
     <DataContext.Provider
@@ -16,6 +18,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         ...patients,
         ...appointments,
         ...services,
+        ...doctors,
         ...consultations,
       }}
     >

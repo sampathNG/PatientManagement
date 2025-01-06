@@ -38,7 +38,8 @@ const updateDoctor = async (req, res) => {
 const deleteDoctor = async (req, res) => {
   try {
     const { id } = req.params;
-    await doctors.findByIdAndRemove(id);
+    // console.log(id);
+    await doctors.findByIdAndDelete(id);
     res.json({ message: "Doctor deleted successfully." });
   } catch (error) {
     res.status(409).json({ message: error.message });

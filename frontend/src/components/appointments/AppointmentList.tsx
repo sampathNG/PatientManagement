@@ -4,6 +4,7 @@ import { Edit, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 export function AppointmentList({ onEdit }: { onEdit: (id: string) => void }) {
   const { appointments, patients, deleteAppointment } = useData();
+  console.log(patients[0]);
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full bg-white rounded-lg">
@@ -31,6 +32,10 @@ export function AppointmentList({ onEdit }: { onEdit: (id: string) => void }) {
             const patient = patients.find(
               (p) => p._id === appointment.patientId
             );
+            // appointments.forEach((appointment) => {
+            //   const patient = patients.find(
+            //     (p) => p._id === appointment.patientId
+            //   );
             return (
               <tr key={appointment._id}>
                 <td className="px-6 py-4 whitespace-nowrap">

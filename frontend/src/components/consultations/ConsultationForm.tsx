@@ -1,46 +1,44 @@
-import React, { useState } from 'react';
-import { Plus, X } from 'lucide-react';
-import { Medicine, Consultation } from '../../types';
-import { useData } from '../../contexts/DataContext';
-
+import React, { useState } from "react";
+import { Plus, X } from "lucide-react";
+import { Medicine, Consultation } from "../../types";
+import { useData } from "../../contexts/DataContext";
 interface ConsultationFormProps {
   appointmentId: string;
   patientId: string;
   doctorId: string;
-  onSubmit: (data: Omit<Consultation, 'id'>) => void;
+  onSubmit: (data: Omit<Consultation, "id">) => void;
   onCancel: () => void;
 }
-
-export function ConsultationForm({ 
-  appointmentId, 
-  patientId, 
-  doctorId, 
-  onSubmit, 
-  onCancel 
+export function ConsultationForm({
+  appointmentId,
+  patientId,
+  doctorId,
+  onSubmit,
+  onCancel,
 }: ConsultationFormProps) {
   const [symptoms, setSymptoms] = useState<string[]>([]);
-  const [currentSymptom, setCurrentSymptom] = useState('');
-  const [medicines, setMedicines] = useState<Omit<Medicine, 'id'>[]>([]);
-  const [diagnosis, setDiagnosis] = useState('');
-  const [notes, setNotes] = useState('');
-  const [followUpDate, setFollowUpDate] = useState('');
-
+  const [currentSymptom, setCurrentSymptom] = useState("");
+  const [medicines, setMedicines] = useState<Omit<Medicine, "id">[]>([]);
+  const [diagnosis, setDiagnosis] = useState("");
+  const [notes, setNotes] = useState("");
+  const [followUpDate, setFollowUpDate] = useState("");
   const handleAddSymptom = () => {
     if (currentSymptom.trim()) {
       setSymptoms([...symptoms, currentSymptom.trim()]);
-      setCurrentSymptom('');
+      setCurrentSymptom("");
     }
   };
-
   const handleAddMedicine = () => {
-    setMedicines([...medicines, {
-      name: '',
-      dosage: '',
-      frequency: '',
-      duration: ''
-    }]);
+    setMedicines([
+      ...medicines,
+      {
+        name: "",
+        dosage: "",
+        frequency: "",
+        duration: "",
+      },
+    ]);
   };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit({
@@ -51,15 +49,19 @@ export function ConsultationForm({
       symptoms,
       diagnosis,
       notes,
-      medicines: medicines.map(m => ({ ...m, id: Math.random().toString(36).substr(2, 9) })),
-      followUpDate: followUpDate || undefined
+      medicines: medicines.map((m) => ({
+        ...m,
+        id: Math.random().toString(36).substr(2, 9),
+      })),
+      followUpDate: followUpDate || undefined,
     });
   };
-
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-gray-700">Symptoms</label>
+        <label className="block text-sm font-medium text-gray-700">
+          Symptoms
+        </label>
         <div className="mt-1 flex space-x-2">
           <input
             type="text"
@@ -85,7 +87,9 @@ export function ConsultationForm({
               {symptom}
               <button
                 type="button"
-                onClick={() => setSymptoms(symptoms.filter((_, i) => i !== index))}
+                onClick={() =>
+                  setSymptoms(symptoms.filter((_, i) => i !== index))
+                }
                 className="ml-1"
               >
                 <X className="w-3 h-3" />
@@ -94,9 +98,10 @@ export function ConsultationForm({
           ))}
         </div>
       </div>
-
       <div>
-        <label className="block text-sm font-medium text-gray-700">Diagnosis</label>
+        <label className="block text-sm font-medium text-gray-700">
+          Diagnosis
+        </label>
         <textarea
           value={diagnosis}
           onChange={(e) => setDiagnosis(e.target.value)}
@@ -105,10 +110,11 @@ export function ConsultationForm({
           required
         />
       </div>
-
       <div>
         <div className="flex justify-between items-center mb-2">
-          <label className="block text-sm font-medium text-gray-700">Medicines</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Medicines
+          </label>
           <button
             type="button"
             onClick={handleAddMedicine}
@@ -171,7 +177,9 @@ export function ConsultationForm({
               />
               <button
                 type="button"
-                onClick={() => setMedicines(medicines.filter((_, i) => i !== index))}
+                onClick={() =>
+                  setMedicines(medicines.filter((_, i) => i !== index))
+                }
                 className="text-red-600 hover:text-red-800"
               >
                 <X className="w-5 h-5" />
@@ -180,7 +188,6 @@ export function ConsultationForm({
           ))}
         </div>
       </div>
-
       <div>
         <label className="block text-sm font-medium text-gray-700">Notes</label>
         <textarea
@@ -190,9 +197,10 @@ export function ConsultationForm({
           rows={3}
         />
       </div>
-
       <div>
-        <label className="block text-sm font-medium text-gray-700">Follow-up Date</label>
+        <label className="block text-sm font-medium text-gray-700">
+          Follow-up Date
+        </label>
         <input
           type="date"
           value={followUpDate}
@@ -200,7 +208,6 @@ export function ConsultationForm({
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
         />
       </div>
-
       <div className="flex justify-end space-x-2">
         <button
           type="button"

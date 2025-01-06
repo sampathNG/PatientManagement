@@ -6,6 +6,11 @@ export interface DataContextType {
   addPatient: (patient: Omit<Patient, "id" | "createdAt">) => void;
   updatePatient: (id: string, patient: Partial<Patient>) => void;
   deletePatient: (id: string) => void;
+  // Doctors
+  doctors: Doctor[];
+  addDoctor: (doctor: Omit<Doctor, "id" | "createdAt">) => void;
+  updateDoctor: (id: string, patient: Partial<Doctor>) => void;
+  deleteDoctor: (id: string) => void;
 
   // Appointments
   appointments: Appointment[];
