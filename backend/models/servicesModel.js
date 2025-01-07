@@ -17,6 +17,13 @@ const servicesSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    doctorId: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Doctors",
+        required: true,
+      },
+    ],
   },
   {
     timestamps: true,
